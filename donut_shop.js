@@ -29,7 +29,14 @@
   Shop.prototype.writeToTable = function() {
     var locationTable, rowElement, totalDonuts, dataElement, textNode, hourlyDonuts;
     locationTable = document.getElementById("location_table");
-    rowElement = document.createElement("tr");
+    if (document.getElementById(this.location.toLowerCase()) == undefined) {
+      rowElement = document.createElement("tr");
+      rowElement.id = this.location.toLowerCase();
+    }
+    else {
+      rowElement = document.getElementById(this.location.toLowerCase());
+      rowElement.textContent = "";
+    }
     totalDonuts = 0;
     dataElement = document.createElement("td");
     textNode = document.createTextNode(this.location);
@@ -49,7 +56,9 @@
     textNode = document.createTextNode(totalDonuts);
     dataElement.appendChild(textNode);
     rowElement.appendChild(dataElement);
-    locationTable.appendChild(rowElement);
+    if (document.getElementById(this.location.toLowerCase()) == undefined) {
+      locationTable.appendChild(rowElement);
+    }
   }
 
   shops = {
@@ -73,13 +82,22 @@
     var location, minCustomers, maxCustomers, avgPurchase;
     e.preventDefault();
     location = document.getElementById("new_shop_location").value;
-    minCustomers = document.getElementById("new_shop_min_customers").value;
-    maxCustomers = document.getElementById("new_shop_max_customers").value;
-    avgPurchase = document.getElementById("new_shop_avg_purchase").value;
+    minCustomers = parseInt(document.getElementById("new_shop_min_customers").value);
+    maxCustomers = parseInt(document.getElementById("new_shop_max_customers").value);
+    avgPurchase = parseInt(document.getElementById("new_shop_avg_purchase").value);
     if (location.length > 0 && !isNaN(minCustomers) && minCustomers >= 0 && !isNaN(maxCustomers) && maxCustomers >= 0 && maxCustomers > minCustomers && !isNaN(avgPurchase) && avgPurchase > 0) {
-      shops[location] = new Shop(location, minCustomers, maxCustomers, avgPurchase);
-      shops[location].writeToTable();
+      if (shops[location.toLowerCase()] == undefined) {
+        shops[location.toLowerCase()] = new Shop(location, minCustomers, maxCustomers, avgPurchase);
+      }
+      else {
+        shops[location.toLowerCase()].minCustomers = parseInt(minCustomers);
+        shops[location.toLowerCase()].maxCustomers = parseInt(maxCustomers);
+        shops[location.toLowerCase()].avgPurchase = parseInt(avgPurchase);
+      }
+      shops[location.toLowerCase()].writeToTable();
+      console.table(shops);
     }
   });
+
 
 }());
