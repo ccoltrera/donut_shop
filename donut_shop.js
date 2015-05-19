@@ -1,5 +1,5 @@
 (function() {
-  var shops;
+  var topPot;
 
   function Shop(location, minCustomers, maxCustomers, avgPurchase) {
     this.location = location;
@@ -61,42 +61,48 @@
     }
   }
 
-  shops = {
-    writeAllShops: function() {
-       for (i in shops) {
-         if (shops[i] instanceof Shop) {
-           shops[i].writeToTable();
-         }
-       }
-    },
-    createUpdateShop: function(e) {
-      var location, minCustomers, maxCustomers, avgPurchase;
-      e.preventDefault();
-      location = document.getElementById("new_shop_location").value;
-      minCustomers = parseInt(document.getElementById("new_shop_min_customers").value);
-      maxCustomers = parseInt(document.getElementById("new_shop_max_customers").value);
-      avgPurchase = parseInt(document.getElementById("new_shop_avg_purchase").value);
-      if (location.length > 0 && !isNaN(minCustomers) && minCustomers >= 0 && !isNaN(maxCustomers) && maxCustomers >= 0 && maxCustomers > minCustomers && !isNaN(avgPurchase) && avgPurchase > 0) {
-        if (shops[location.toLowerCase()] == undefined) {
-          shops[location.toLowerCase()] = new Shop(location, minCustomers, maxCustomers, avgPurchase);
-        }
-        else {
-          shops[location.toLowerCase()].minCustomers = parseInt(minCustomers);
-          shops[location.toLowerCase()].maxCustomers = parseInt(maxCustomers);
-          shops[location.toLowerCase()].avgPurchase = parseInt(avgPurchase);
-        }
-        shops[location.toLowerCase()].writeToTable();
-      }
-    },
-    downtown: new Shop("Downtown", 8, 43, 4.50),
-    capitolHill: new Shop("Capitol Hill", 4, 37, 2.00),
-    southLakeUnion: new Shop("South Lake Union", 9, 23, 6.33),
-    wedgewood: new Shop("Wedgewood", 2, 28, 1.25),
-    ballard: new Shop("Ballard", 8, 58, 3.75)
+  function Corporation(name) {
+    this.name = name;
   }
 
-  document.getElementById("new_shop_button").addEventListener("click", shops.createUpdateShop);
+  Corporation.prototype.writeAllShops = function() {
+     for (i in this) {
+       if (this[i] instanceof Shop) {
+         this[i].writeToTable();
+       }
+     }
+  }
 
-  shops.writeAllShops();
+  Corporation.prototype.createUpdateShop = function(e) {
+    var location, minCustomers, maxCustomers, avgPurchase;
+    e.preventDefault();
+    location = document.getElementById("new_top_pot_location").value;
+    minCustomers = parseInt(document.getElementById("new_top_pot_min_customers").value);
+    maxCustomers = parseInt(document.getElementById("new_top_pot_max_customers").value);
+    avgPurchase = parseInt(document.getElementById("new_top_pot_avg_purchase").value);
+    if (location.length > 0 && !isNaN(minCustomers) && minCustomers >= 0 && !isNaN(maxCustomers) && maxCustomers >= 0 && maxCustomers > minCustomers && !isNaN(avgPurchase) && avgPurchase > 0) {
+      if (this[location.toLowerCase()] == undefined) {
+        this[location.toLowerCase()] = new Shop(location, minCustomers, maxCustomers, avgPurchase);
+      }
+      else {
+        this[location.toLowerCase()].minCustomers = parseInt(minCustomers);
+        this[location.toLowerCase()].maxCustomers = parseInt(maxCustomers);
+        this[location.toLowerCase()].avgPurchase = parseInt(avgPurchase);
+      }
+      this[location.toLowerCase()].writeToTable();
+    }
+  }
+
+  topPot = new Corporation("Top Pot");
+
+  topPot.downtown = new Shop("Downtown", 8, 43, 4.50);
+  topPot.capitolHill = new Shop("Capitol Hill", 4, 37, 2.00);
+  topPot.southLakeUnion = new Shop("South Lake Union", 9, 23, 6.33);
+  topPot.wedgewood = new Shop("Wedgewood", 2, 28, 1.25);
+  topPot.ballard = new Shop("Ballard", 8, 58, 3.75);
+
+  document.getElementById("new_top_pot_button").addEventListener("click", topPot.createUpdateShop);
+
+  topPot.writeAllShops();
 
 }());
