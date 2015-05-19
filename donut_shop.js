@@ -1,5 +1,5 @@
 (function() {
-  var topPot;
+  var topPot, corpNameInput, corpOpenInput, corpCloseInput, corpCreateButton;
 
   //Shop() object, with set hours.
   function Shop(location, minCustomers, maxCustomers, avgPurchase, open, close) {
@@ -94,18 +94,33 @@
   //Creates a table for a given Corporation() object, with its hours in the first row,
   //and then calls writeAllShops() to write to the new table.
   Corporation.prototype.writeTable = function() {
-    var body, locationTable, timeRow, newTHead, newTH, newText, newTD, newHR, newForm, locationInput, minCustInput, maxCustInput, avgPurchInput, newButton;
-    body = document.querySelector("body");
+    var main, newSection, locationTable, timeRow, newTHead, newTH, newText, newForm, locationInput, minCustInput, maxCustInput, avgPurchInput, newButton;
+    main = document.querySelector("main");
+
+    if (document.getElementById(this.name + "table") == undefined) {
+      newSection = document.createElement("section");
+      newSection.id = this.name + "table";
+    }
+    else {
+      newSection = document.getElementById(this.name + "table");
+      newSection.textContent = "";
+    }
+
     locationTable = document.createElement("table");
     locationTable.id = this.name;
 
-    newTHead = document.createElement("thead");
-    newTD = document.createElement("td");
-    newTD.setAttribute("colspan", this.close - this.open + 2);
+    newH2 = document.createElement("h2");
     newText = document.createTextNode(this.name);
-    newTD.appendChild(newText);
-    newTHead.appendChild(newTD);
-    locationTable.appendChild(newTHead);
+    newH2.appendChild(newText);
+    newSection.appendChild(newH2);
+
+    // newTHead = document.createElement("thead");
+    // newTH = document.createElement("th");
+    // newTH.setAttribute("colspan", (this.close - this.open + 2).toString());
+    // newText = document.createTextNode(this.name);
+    // newTH.appendChild(newText);
+    // newTHead.appendChild(newTH);
+    // locationTable.appendChild(newTHead);
 
     timeRow = document.createElement("tr");
 
@@ -115,6 +130,7 @@
     timeRow.appendChild(newTH);
 
     for (var i = 0; i < this.close - this.open; i ++) {
+
       newTH = document.createElement("th");
 
       if (this.open + i < 12) {
@@ -137,10 +153,7 @@
     timeRow.appendChild(newTH);
 
     locationTable.appendChild(timeRow);
-    body.appendChild(locationTable);
-
-    newHR = document.createElement("hr");
-    body.appendChild(newHR);
+    newSection.appendChild(locationTable);
 
     newForm = document.createElement("form");
     locationInput = document.createElement("input");
@@ -174,7 +187,9 @@
     newButton.appendChild(newText);
     newForm.appendChild(newButton);
 
-    body.appendChild(newForm);
+    newSection.appendChild(newForm);
+    main.appendChild(newSection);
+
 
 
     //Adds event listener to form button, sets it to call topPot Corporation() object's
@@ -211,24 +226,49 @@
     }
   }
 
-  //Instantiate topPot as a new Corporation() object, and stores new Shop() objects as properties.
-  topPot = new Corporation("Top Pot", 7, 18);
+  function Market() {};
 
-  topPot.addNewLocation("Downtown", 8, 43, 4.50);
-  topPot.addNewLocation("Capitol Hill", 4, 37, 2.00);
-  topPot.addNewLocation("South Lake Union", 9, 23, 6.33);
-  topPot.addNewLocation("Wedgewood", 2, 28, 1.25);
-  topPot.addNewLocation("Ballard", 8, 58, 3.75);
+  seattle = new Market();
 
-  // topPot.downtown = new Shop("Downtown", 8, 43, 4.50, 7, 18);
-  // topPot.capitolHill = new Shop("Capitol Hill", 4, 37, 2.00, 7, 18);
-  // topPot.southLakeUnion = new Shop("South Lake Union", 9, 23, 6.33, 7, 18);
-  // topPot.wedgewood = new Shop("Wedgewood", 2, 28, 1.25, 7, 18);
-  // topPot.ballard = new Shop("Ballard", 8, 58, 3.75, 7, 18);
+  //Instantiate toppot as a new Corporation() object, and stores new Shop() objects as properties.
+  seattle["top pot"] = new Corporation("Top Pot", 7, 18);
 
-  //window.addEventListener("load", topPot.writeAllShops);
-  //topPot.writeAllShops("location_table");
+  seattle["top pot"].addNewLocation("Downtown", 8, 43, 4.50);
+  seattle["top pot"].addNewLocation("Capitol Hill", 4, 37, 2.00);
+  seattle["top pot"].addNewLocation("South Lake Union", 9, 23, 6.33);
+  seattle["top pot"].addNewLocation("Wedgewood", 2, 28, 1.25);
+  seattle["top pot"].addNewLocation("Ballard", 8, 58, 3.75);
 
-  topPot.writeTable();
+  seattle["top pot"].writeTable();
+
+  corpCreateButton = document.getElementById("corp_create");
+  corpNameInput = document.getElementById("corp_name");
+  corpOpenInput = document.getElementById("corp_open");
+  corpCloseInput = document.getElementById("corp_close");
+
+  corpCreateButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    corpName = corpNameInput.value;
+    corpOpen = parseInt(corpOpenInput.value);
+    corpClose = parseInt(corpCloseInput.value);
+    if (corpName.length > 0 && corpOpen > 0 && !isNaN(corpOpen) && corpClose > corpOpen && !isNaN(corpClose)) {
+      if (seattle[corpNameInput.value.toLowerCase()] == undefined) {
+        seattle[corpName.toLowerCase()] = new Corporation(corpName, corpOpen, corpClose);
+        seattle[corpName.toLowerCase()].writeTable();
+      }
+      // else {
+      //   seattle[corpName.toLowerCase()].open = corpOpen;
+      //   seattle[corpName.toLowerCase()].close = corpClose;
+      //   for (var i in seattle[corpName.toLowerCase()]) {
+      //     if (i instanceof Shop) {
+      //       seattle[corpName.toLowerCase()][i].open = corpOpen;
+      //       seattle[corpName.toLowerCase()][i].close = corpClose;
+      //     }
+      //   }
+      //   seattle[corpName.toLowerCase()].writeTable();
+      // }
+    }
+  });
+
 
 }());
