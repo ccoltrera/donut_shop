@@ -94,17 +94,11 @@
   //Creates a table for a given Corporation() object, with its hours in the first row,
   //and then calls writeAllShops() to write to the new table.
   Corporation.prototype.writeTable = function() {
-    var main, newSection, locationTable, timeRow, newTHead, newTH, newText, newForm, locationInput, minCustInput, maxCustInput, avgPurchInput, newButton;
+    var main, newSection, locationTable, timeRow, newTH, newText, newForm, locationInput, minCustInput, maxCustInput, avgPurchInput, newButton;
     main = document.querySelector("main");
 
-    if (document.getElementById(this.name + "table") == undefined) {
-      newSection = document.createElement("section");
-      newSection.id = this.name + "table";
-    }
-    else {
-      newSection = document.getElementById(this.name + "table");
-      newSection.textContent = "";
-    }
+    newSection = document.createElement("section");
+    newSection.id = this.name + "table";
 
     locationTable = document.createElement("table");
     locationTable.id = this.name;
@@ -113,14 +107,6 @@
     newText = document.createTextNode(this.name);
     newH2.appendChild(newText);
     newSection.appendChild(newH2);
-
-    // newTHead = document.createElement("thead");
-    // newTH = document.createElement("th");
-    // newTH.setAttribute("colspan", (this.close - this.open + 2).toString());
-    // newText = document.createTextNode(this.name);
-    // newTH.appendChild(newText);
-    // newTHead.appendChild(newTH);
-    // locationTable.appendChild(newTHead);
 
     timeRow = document.createElement("tr");
 
@@ -183,7 +169,8 @@
 
     newButton = document.createElement("button");
     newButton.id = this.name + "button";
-    newText = document.createTextNode("Create / Update " + this.name + " Shop");
+
+    newText = document.createTextNode(this.name + " Shop");
     newButton.appendChild(newText);
     newForm.appendChild(newButton);
 
@@ -195,7 +182,25 @@
     //Adds event listener to form button, sets it to call topPot Corporation() object's
     //createUpdateShop() method. Uses jquery $.proxy() function to set the context for
     //topPot.createUpdateShop() as topPot.
-    document.getElementById(this.name + "button").addEventListener("click", $.proxy(this.createUpdateShop, this));
+    newButton = document.getElementById(this.name + "button");
+    newButton.addEventListener("click", $.proxy(this.createUpdateShop, this));
+
+
+    //Blur event of the location input box will change button text to reflect what result of press will be.
+    //If length == 0, then default text is restored.
+    locationInput = document.getElementById(this.name + "location_input");
+    locationInput.addEventListener("blur", $.proxy(function() {
+      newButton.textContent = "";
+      if (locationInput.value.length == 0) {
+        newButton.appendChild(document.createTextNode(this.name + " Shop"));
+      }
+      else if (this[locationInput.value.toLowerCase()] == undefined) {
+        newButton.appendChild(document.createTextNode("Create New Shop"));
+      }
+      else {
+        newButton.appendChild(document.createTextNode("Update Shop"));
+      }
+    }, this));
 
     this.writeAllShops(this.name);
   }
@@ -256,17 +261,6 @@
         seattle[corpName.toLowerCase()] = new Corporation(corpName, corpOpen, corpClose);
         seattle[corpName.toLowerCase()].writeTable();
       }
-      // else {
-      //   seattle[corpName.toLowerCase()].open = corpOpen;
-      //   seattle[corpName.toLowerCase()].close = corpClose;
-      //   for (var i in seattle[corpName.toLowerCase()]) {
-      //     if (i instanceof Shop) {
-      //       seattle[corpName.toLowerCase()][i].open = corpOpen;
-      //       seattle[corpName.toLowerCase()][i].close = corpClose;
-      //     }
-      //   }
-      //   seattle[corpName.toLowerCase()].writeTable();
-      // }
     }
   });
 
