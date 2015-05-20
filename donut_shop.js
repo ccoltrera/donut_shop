@@ -231,20 +231,20 @@
     }
   }
 
-  function Market() {};
+  function Holding() {};
 
-  seattle = new Market();
+  klebeck = new Holding();
 
   //Instantiate toppot as a new Corporation() object, and stores new Shop() objects as properties.
-  seattle["top pot"] = new Corporation("Top Pot", 7, 18);
+  klebeck["top pot"] = new Corporation("Top Pot", 7, 18);
 
-  seattle["top pot"].addNewLocation("Downtown", 8, 43, 4.50);
-  seattle["top pot"].addNewLocation("Capitol Hill", 4, 37, 2.00);
-  seattle["top pot"].addNewLocation("South Lake Union", 9, 23, 6.33);
-  seattle["top pot"].addNewLocation("Wedgewood", 2, 28, 1.25);
-  seattle["top pot"].addNewLocation("Ballard", 8, 58, 3.75);
+  klebeck["top pot"].addNewLocation("Downtown", 8, 43, 4.50);
+  klebeck["top pot"].addNewLocation("Capitol Hill", 4, 37, 2.00);
+  klebeck["top pot"].addNewLocation("South Lake Union", 9, 23, 6.33);
+  klebeck["top pot"].addNewLocation("Wedgewood", 2, 28, 1.25);
+  klebeck["top pot"].addNewLocation("Ballard", 8, 58, 3.75);
 
-  seattle["top pot"].writeTable();
+  klebeck["top pot"].writeTable();
 
   corpCreateButton = document.getElementById("corp_create");
   corpNameInput = document.getElementById("corp_name");
@@ -257,9 +257,9 @@
     corpOpen = parseInt(corpOpenInput.value);
     corpClose = parseInt(corpCloseInput.value);
     if (corpName.length > 0 && corpOpen > 0 && !isNaN(corpOpen) && corpClose > corpOpen && !isNaN(corpClose)) {
-      if (seattle[corpNameInput.value.toLowerCase()] == undefined) {
-        seattle[corpName.toLowerCase()] = new Corporation(corpName, corpOpen, corpClose);
-        seattle[corpName.toLowerCase()].writeTable();
+      if (klebeck[corpNameInput.value.toLowerCase()] == undefined) {
+        klebeck[corpName.toLowerCase()] = new Corporation(corpName, corpOpen, corpClose);
+        klebeck[corpName.toLowerCase()].writeTable();
       }
     }
   });
