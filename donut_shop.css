@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "Roboto_Condensed";
+  src:url("Roboto_Condensed/RobotoCondensed-light.ttf");
+}
+header {
+  text-align: center;
+  color: #F2EBC7;
+  background-color: #343642;
+  font-size: 1.5em;
+
+}
+
+header form{
+  text-align: right;
+}
+
+body {
+  font-family: Roboto_Condensed;
+  background-color: #F2EBC7;
+
+}
+h2 {
+  color:#962D3E;
+  font-size: 2em;
+
+}
+
+table {
+  border-collapse: collapse;
+  background-color: #348899;
+}
+
+tr * {
+  border: 1px solid #979C9C;
+
+}
