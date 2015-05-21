@@ -84,9 +84,15 @@
 
   //Calls all Corporation() object's Shop() objects' writeToTable() method.
   Corporation.prototype.writeAllShops = function(tableID) {
+     var evenOdd;
+     evenOdd = 0;
      for (i in this) {
        if (this[i] instanceof Shop) {
          this[i].writeToTable(tableID);
+         evenOdd += 1;
+         if (evenOdd % 2 !== 0) {
+          document.getElementById(this[i].location.toLowerCase()).className = "table_odd";
+         }
        }
      }
   }
@@ -94,7 +100,7 @@
   //Creates a table for a given Corporation() object, with its hours in the first row,
   //and then calls writeAllShops() to write to the new table.
   Corporation.prototype.writeTable = function() {
-    var main, newSection, locationTable, timeRow, newTH, newText, newForm, locationInput, minCustInput, maxCustInput, avgPurchInput, newButton;
+    var main, newSection, locationTable, newTHEAD, timeRow, newTH, newText, newForm, locationInput, minCustInput, maxCustInput, avgPurchInput, newButton;
     main = document.querySelector("main");
 
     newSection = document.createElement("section");
@@ -102,6 +108,9 @@
 
     locationTable = document.createElement("table");
     locationTable.id = this.name;
+
+    newTHEAD = document.createElement("thead")
+    locationTable.appendChild(newTHEAD);
 
     newH2 = document.createElement("h2");
     newText = document.createTextNode(this.name);
