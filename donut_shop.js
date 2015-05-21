@@ -68,6 +68,9 @@
     //If the row is new, appends it to the table.
     if (document.getElementById(this.location.toLowerCase()) == undefined) {
       locationTable.appendChild(rowElement);
+      if (rowElement.previousSibling.className != "table_odd") {
+        rowElement.className = "table_odd";
+      }
     }
   }
 
@@ -89,10 +92,6 @@
      for (i in this) {
        if (this[i] instanceof Shop) {
          this[i].writeToTable(tableID);
-         evenOdd += 1;
-         if (evenOdd % 2 !== 0) {
-          document.getElementById(this[i].location.toLowerCase()).className = "table_odd";
-         }
        }
      }
   }
@@ -151,6 +150,7 @@
     newSection.appendChild(locationTable);
 
     newForm = document.createElement("form");
+    newForm.id = this.name + "form";
     locationInput = document.createElement("input");
     locationInput.id = this.name + "location_input";
     locationInput.setAttribute("type","text");
@@ -223,6 +223,9 @@
     minCustomers = parseInt(document.getElementById(this.name + "min_cust_input").value);
     maxCustomers = parseInt(document.getElementById(this.name + "max_cust_input").value);
     avgPurchase = parseInt(document.getElementById(this.name + "avg_purch_input").value);
+
+    document.getElementById(this.name + "form").reset();
+
     //Checks input is valid.
     if (location.length > 0 && !isNaN(minCustomers) && minCustomers >= 0 && !isNaN(maxCustomers) && maxCustomers >= 0 && maxCustomers > minCustomers && !isNaN(avgPurchase) && avgPurchase > 0) {
       //For new locations, creates a new Shop() object.
@@ -271,6 +274,7 @@
         klebeck[corpName.toLowerCase()].writeTable();
       }
     }
+    document.getElementById("corp_form").reset();
   });
 
 
