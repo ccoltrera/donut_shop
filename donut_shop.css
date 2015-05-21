@@ -104,7 +104,7 @@ button {
   text-transform: uppercase;
   font-size: .65em;
   letter-spacing: 0.25em;
-  border-radius: 1em;
+  border-radius: 0.5em;
 }
 
 button:hover {

@@ -225,6 +225,8 @@
     avgPurchase = parseInt(document.getElementById(this.name + "avg_purch_input").value);
 
     document.getElementById(this.name + "form").reset();
+    document.getElementById(this.name + "button").textContent = "";
+    document.getElementById(this.name + "button").appendChild(document.createTextNode(this.name + " Shop"));
 
     //Checks input is valid.
     if (location.length > 0 && !isNaN(minCustomers) && minCustomers >= 0 && !isNaN(maxCustomers) && maxCustomers >= 0 && maxCustomers > minCustomers && !isNaN(avgPurchase) && avgPurchase > 0) {
