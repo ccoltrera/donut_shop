@@ -8,45 +8,79 @@
   src:url("Roboto_Condensed/RobotoCondensed-Light.ttf");
 }
 
+@font-face {
+  font-family: "Roboto_Condensed_Regular";
+  src:url("Roboto_Condensed/RobotoCondensed-Regular.ttf");
+}
+
 body {
   background-color: #348899;
   border-collapse: collapse;
 }
 
 header {
+  width: 100%;
+  background-color: #F2EBC7;
+  overflow: auto;
   font-family: Roboto_Condensed_Bold;
   text-align: center;
   font-size: 1.25em;
   letter-spacing: 0.5em;
   text-transform: uppercase;
   /*background-color: #878DAD;*/
-  margin: 0px auto 10px auto;
-  width: 750px;
+  margin: 0 auto 10px auto;
+  padding: 10px;
 
 }
 
 h1 {
-  margin: 10px auto 10px auto;
-  color: #F2EBC7;
-  font-size: 3em;
+  margin: 0 auto 0 auto;
+  color: #962D3E;
+  font-size: 2em;
 }
 
-main {
-  width: 1000px;
-  padding: 10px 50px 0 50px;
+/*main {
+  width: 75%;
+  padding: 10px 50px 1px 50px;
   margin: 0 auto 0 auto;
   background-color: #F2EBC7;
-  border-radius: 1em 8em 1em 8em / 1em 1em 1em 1em;
+  border-bottom-left-radius: 80px 30px;
+  border-bottom-right-radius: 80px 30px;
+}*/
+
+aside, article {
+  padding: 10px 50px 1px 50px;
+  background-color: #F2EBC7;
+  border-bottom-left-radius: 80px 30px;
+  border-bottom-right-radius: 80px 30px;
+}
+
+aside {
+  margin: 0 10px 0 3%;
+  width: 15%;
+  float:left;
+  position: fixed;
+}
+
+aside button, aside input {
+  margin: 10px;
+}
+
+aside h2 {
+  letter-spacing: 0em;
+}
+
+article {
+  margin: 0 0 0 27%;
+  width: 60%;
+  float: right;
+  position: absolute;
 }
 
 hr {
   border-color: #F2EBC7;
   border-style:solid
   border-height: 3px;
-}
-
-main > form{
-  text-align: left;
 }
 
 h2 {
@@ -59,10 +93,46 @@ h2 {
 
 }
 
+form {
+  margin: 10px 0 10px 0;
+}
+
+input {
+  padding: 2px 10px 2px 10px;
+  box-shadow: none;
+  border: 0;
+  margin: 5px 10px 5px 10px;
+}
+
+button {
+  background-color:#FFF;
+  padding: 3px 10px 2px 10px;
+  margin: 5px 10px 5px 10px;
+  /*font-family: Roboto_Condensed_bold;*/
+  text-transform: uppercase;
+  font-size: .65em;
+  letter-spacing: 0.25em;
+  /*border-radius: 0.5em;*/
+  box-shadow: none;
+  border: 0;
+}
+
+button:hover {
+  background-color:#962D3E;
+  color: #FFF;
+}
+
+button:active {
+  background-color:#348899;
+  color: #FFF;
+}
+
+
 table {
   border: 2px solid #F2EBC7;
   border-collapse: collapse;
-  font-family: Roboto_Condensed_Light;
+  font-family: Roboto_Condensed_Regular;
+  letter-spacing: 0.01em;
 }
 
 table~form {
@@ -90,33 +160,4 @@ tr th {
 tr td {
   border-right: 1px solid #F2EBC7;
   padding: 2px 3px 2px 3px;
-}
-
-input {
-  padding: 2px 10px 2px 10px;
-  box-shadow: none;
-  border: 0;
-  margin: 10px;
-}
-
-button {
-  background-color:#FFF;
-  padding: 3px 10px 2px 10px;
-  /*font-family: Roboto_Condensed_bold;*/
-  text-transform: uppercase;
-  font-size: .65em;
-  letter-spacing: 0.25em;
-  /*border-radius: 0.5em;*/
-  box-shadow: none;
-  border: 0;
-}
-
-button:hover {
-  background-color:#962D3E;
-  color: #FFF;
-}
-
-button:active {
-  background-color:#348899;
-  color: #FFF;
 }

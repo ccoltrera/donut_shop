@@ -99,8 +99,8 @@
   //Creates a table for a given Corporation() object, with its hours in the first row,
   //and then calls writeAllShops() to write to the new table.
   Corporation.prototype.writeTable = function() {
-    var main, newSection, locationTable, newTHEAD, timeRow, newTH, newText, newForm, locationInput, minCustInput, maxCustInput, avgPurchInput, newButton;
-    main = document.querySelector("main");
+    var article, newSection, locationTable, newTHEAD, timeRow, newTH, newText, newForm, locationInput, minCustInput, maxCustInput, avgPurchInput, newButton;
+    article = document.querySelector("article");
 
     newSection = document.createElement("section");
     newSection.id = this.name + "table";
@@ -184,7 +184,7 @@
     newForm.appendChild(newButton);
 
     newSection.appendChild(newForm);
-    main.appendChild(newSection);
+    article.appendChild(newSection);
 
 
 
