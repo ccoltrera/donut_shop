@@ -60,6 +60,7 @@ aside {
   width: 15%;
   float:left;
   position: fixed;
+  border-bottom-right-radius: 0;
 }
 
 aside button, aside input {
@@ -71,16 +72,17 @@ aside h2 {
 }
 
 article {
-  margin: 0 0 0 27%;
+  margin: 0 3% 0 auto;
   width: 60%;
+  min-width: 600px;
   float: right;
-  position: absolute;
 }
 
 hr {
   border-color: #F2EBC7;
   border-style:solid
   border-height: 3px;
+  margin: 0 auto 25px auto;
 }
 
 h2 {

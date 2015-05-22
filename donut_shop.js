@@ -260,6 +260,15 @@
 
   klebeck["top pot"].writeTable();
 
+  // klebeck["pot top"] = new Corporation("Pot Top", 18, 24);
+  // klebeck["pot top"].addNewLocation("Madison Park", 9, 23, 6.33);
+  // klebeck["pot top"].addNewLocation("Fremont", 2, 28, 1.25);
+  // klebeck["pot top"].addNewLocation("Magnolia", 8, 43, 4.50);
+  // klebeck["pot top"].addNewLocation("Queen Anne", 4, 37, 2.00);
+  // klebeck["pot top"].addNewLocation("Belltown", 11, 40, 1);
+
+  // klebeck["pot top"].writeTable();
+
   corpCreateButton = document.getElementById("corp_create");
   corpNameInput = document.getElementById("corp_name");
   corpOpenInput = document.getElementById("corp_open");
