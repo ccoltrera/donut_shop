@@ -147,6 +147,16 @@ tr {
   background-color: #F2EBC7;
 }
 
+table>tr~tr {
+  transition-property: transform;
+  transition-duration: .2s, 1s;
+  transition-timing-function: linear, ease-in;
+}
+
+table>tr~tr:hover {
+  transform: scale(1.02);
+}
+
 tr.table_odd {
   background-color: #FFF;
 }
