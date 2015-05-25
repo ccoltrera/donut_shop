@@ -133,7 +133,7 @@ button:active {
 table {
   border: 2px solid #F2EBC7;
   border-collapse: collapse;
-  font-family: Roboto_Condensed_Regular;
+  font-family: Roboto_Condensed_Light;
   letter-spacing: 0.01em;
 }
 
@@ -146,6 +146,29 @@ table~form {
 tr {
   background-color: #F2EBC7;
 }
+
+table>tr~tr {
+  transition-property: transform;
+/*  transition-duration: .2s, 1s;
+  transition-timing-function: linear, ease-in;*/
+}
+
+table>tr~tr:hover {
+  transform: scale(1.01);
+}
+
+table>tr~tr.table_odd:hover + tr.table_odd {
+  transform: scale(1.01);
+  font-family: Roboto_Condensed_Light;
+  font-size: 0.75em;
+}
+
+table>tr~tr:not(.table_odd):hover + tr:not(.table_odd) {
+  transform: scale(1.01);
+  font-family: Roboto_Condensed_Light;
+  font-size: 0.75em;
+}
+
 
 tr.table_odd {
   background-color: #FFF;

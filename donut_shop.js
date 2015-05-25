@@ -1,5 +1,5 @@
 (function() {
-  var topPot, corpNameInput, corpOpenInput, corpCloseInput, corpCreateButton;
+  var topPot, corpNameInput, corpOpenInput, corpCloseInput, corpCreateButton, donutCostButton, donutDataRows;
 
   //Shop() object, with set hours.
   function Shop(location, minCustomers, maxCustomers, avgPurchase, open, close) {
@@ -39,6 +39,7 @@
     if (document.getElementById(this.location.toLowerCase()) == undefined) {
       rowElement = document.createElement("tr");
       rowElement.id = this.location.toLowerCase();
+      rowElement.className = "donut_data_row";
     }
     //If inputted shop is on the table, gets the row element, using the location as id.
     else {
@@ -68,8 +69,8 @@
     //If the row is new, appends it to the table.
     if (document.getElementById(this.location.toLowerCase()) == undefined) {
       locationTable.appendChild(rowElement);
-      if (rowElement.previousSibling.className != "table_odd") {
-        rowElement.className = "table_odd";
+      if (rowElement.previousSibling.className != "donut_data_row table_odd") {
+        rowElement.className += " table_odd";
       }
     }
   }
@@ -243,6 +244,7 @@
       //Either way, calls Shop() object's writeToTable() method.
       this[location.toLowerCase()].writeToTable(this.name);
     }
+    activateTheRows();
   }
 
   function Holding() {};
@@ -260,14 +262,14 @@
 
   klebeck["top pot"].writeTable();
 
-  // klebeck["pot top"] = new Corporation("Pot Top", 18, 24);
-  // klebeck["pot top"].addNewLocation("Madison Park", 9, 23, 6.33);
-  // klebeck["pot top"].addNewLocation("Fremont", 2, 28, 1.25);
-  // klebeck["pot top"].addNewLocation("Magnolia", 8, 43, 4.50);
-  // klebeck["pot top"].addNewLocation("Queen Anne", 4, 37, 2.00);
-  // klebeck["pot top"].addNewLocation("Belltown", 11, 40, 1);
+  klebeck["pot top"] = new Corporation("Pot Top", 18, 24);
+  klebeck["pot top"].addNewLocation("Madison Park", 9, 23, 6.33);
+  klebeck["pot top"].addNewLocation("Fremont", 2, 28, 1.25);
+  klebeck["pot top"].addNewLocation("Magnolia", 8, 43, 4.50);
+  klebeck["pot top"].addNewLocation("Queen Anne", 4, 37, 2.00);
+  klebeck["pot top"].addNewLocation("Belltown", 11, 40, 1);
 
-  // klebeck["pot top"].writeTable();
+  klebeck["pot top"].writeTable();
 
   corpCreateButton = document.getElementById("corp_create");
   corpNameInput = document.getElementById("corp_name");
@@ -275,6 +277,7 @@
   corpCloseInput = document.getElementById("corp_close");
 
   corpCreateButton.addEventListener("click", function(e) {
+    var corpName, corpOpen, corpClose;
     e.preventDefault();
     corpName = corpNameInput.value;
     corpOpen = parseInt(corpOpenInput.value);
@@ -287,6 +290,56 @@
     }
     document.getElementById("corp_form").reset();
   });
+
+  donutCostButton = document.getElementById("set_cost");
+
+  donutCostButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    var donutCost = document.getElementById("cost_input").value;
+    if (!isNaN(donutCost)) {
+      document.getElementById("donut_cost").textContent = donutCost;
+      document.getElementById("cost_form").reset();
+    }
+  })
+
+
+  donutDataRows = document.getElementsByClassName("donut_data_row");
+  function activateTheRows() {
+    for (var i = 0; i < donutDataRows.length; i ++) {
+      donutDataRows[i].addEventListener("mouseenter", $.proxy(function(e) {
+        var newRow = document.createElement("tr");
+        for (var j = 0; j < this.childNodes.length; j++) {
+          var newCell = document.createElement("td");
+          var newText = document.createTextNode("");
+          var oldCellValue = this.childNodes[j].textContent;
+          if (!isNaN(oldCellValue)) {
+            newText.textContent = "($" + Math.round(parseInt(oldCellValue) * document.getElementById("donut_cost").textContent) + ")";
+          }
+          newCell.appendChild(newText);
+          newRow.appendChild(newCell);
+          newRow.className = this.className;
+        }
+        if (this.nextSibling == undefined) {
+          this.parentNode.insertBefore(newRow, this.nextSibling);
+        } else if (!(this.nextSibling.className === this.className)) {
+          this.parentNode.insertBefore(newRow, this.nextSibling);
+        }
+      }), donutDataRows[i]);
+    }
+    for (var i = 0; i < donutDataRows.length; i ++) {
+      donutDataRows[i].addEventListener("mouseleave", $.proxy(function(e) {
+        if (this.nextSibling == undefined) {
+
+        }
+        else if (this.nextSibling.className === this.className) {
+          var oldRow = this.nextSibling;
+          oldRow.parentNode.removeChild(oldRow);
+        }
+      }), donutDataRows[i]);
+    }
+  }
+
+  activateTheRows();
 
 
 }());
