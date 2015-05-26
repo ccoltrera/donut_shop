@@ -149,8 +149,9 @@ tr {
 
 table>tr~tr {
   transition-property: transform;
-/*  transition-duration: .2s, 1s;
-  transition-timing-function: linear, ease-in;*/
+  cursor: pointer;
+  transition-duration: .2s, 1s;
+  transition-timing-function: linear, ease-in;
 }
 
 table>tr~tr:hover {
@@ -161,12 +162,14 @@ table>tr~tr.table_odd:hover + tr.table_odd {
   transform: scale(1.01);
   font-family: Roboto_Condensed_Light;
   font-size: 0.75em;
+  padding: 0;
 }
 
 table>tr~tr:not(.table_odd):hover + tr:not(.table_odd) {
   transform: scale(1.01);
   font-family: Roboto_Condensed_Light;
   font-size: 0.75em;
+  padding: 0;
 }
 
 
@@ -184,5 +187,5 @@ tr th {
 
 tr td {
   border-right: 1px solid #F2EBC7;
-  padding: 2px 3px 2px 3px;
+  padding: 2px 4px 2px 4px;
 }

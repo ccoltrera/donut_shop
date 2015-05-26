@@ -143,7 +143,7 @@
     }
 
     newTH = document.createElement("th");
-    newText = document.createTextNode("Total");
+    newText = document.createTextNode("Daily Total");
     newTH.appendChild(newText);
     timeRow.appendChild(newTH);
 
@@ -296,7 +296,7 @@
   donutCostButton.addEventListener("click", function(e) {
     e.preventDefault();
     var donutCost = document.getElementById("cost_input").value;
-    if (!isNaN(donutCost)) {
+    if (!isNaN(donutCost) && donutCost.length > 0) {
       document.getElementById("donut_cost").textContent = donutCost;
       document.getElementById("cost_form").reset();
     }
@@ -306,14 +306,14 @@
   donutDataRows = document.getElementsByClassName("donut_data_row");
   function activateTheRows() {
     for (var i = 0; i < donutDataRows.length; i ++) {
-      donutDataRows[i].addEventListener("mouseenter", $.proxy(function(e) {
+      donutDataRows[i].addEventListener("click", $.proxy(function(e) {
         var newRow = document.createElement("tr");
         for (var j = 0; j < this.childNodes.length; j++) {
           var newCell = document.createElement("td");
           var newText = document.createTextNode("");
           var oldCellValue = this.childNodes[j].textContent;
           if (!isNaN(oldCellValue)) {
-            newText.textContent = "($" + Math.round(parseInt(oldCellValue) * document.getElementById("donut_cost").textContent) + ")";
+            newText.textContent = "($" + parseFloat(parseInt(oldCellValue) * document.getElementById("donut_cost").textContent).toFixed(2) + ")";
           }
           newCell.appendChild(newText);
           newRow.appendChild(newCell);
@@ -324,7 +324,7 @@
         } else if (!(this.nextSibling.className === this.className)) {
           this.parentNode.insertBefore(newRow, this.nextSibling);
         }
-      }), donutDataRows[i]);
+      }, donutDataRows[i]), false);
     }
     for (var i = 0; i < donutDataRows.length; i ++) {
       donutDataRows[i].addEventListener("mouseleave", $.proxy(function(e) {
@@ -335,7 +335,7 @@
           var oldRow = this.nextSibling;
           oldRow.parentNode.removeChild(oldRow);
         }
-      }), donutDataRows[i]);
+      }, donutDataRows[i]), false);
     }
   }
 
